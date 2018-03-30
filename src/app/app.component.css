@@ -1,0 +1,47 @@
+.header {
+    margin-left: 0%;
+    min-height:80px;
+    margin-top:40px;
+    _height:400px;
+    background-color:#444;
+    border-radius: 5px;
+}
+.header span{
+color: white;
+position:absolute;
+margin-top: 25px;
+font-family:monospace;
+font-size: 23px;
+margin-left: 25px;
+}
+.header a{
+    position:absolute;    
+    color: white;
+    margin-left: 500px;
+    margin-top:25px;
+}
+
+.header .community{
+    position:absolute;    
+    color: white;
+    margin-left: 610px;
+    margin-top:25px;
+}
+
+
+.header .login{
+    position:absolute;    
+    color: white;
+    margin-left: 1200px;
+    margin-top:25px;
+}
+
+
+.header .signup{
+    position:absolute;    
+    color: white;
+    margin-left: 1280px;
+    margin-top:25px;
+}
+
+
