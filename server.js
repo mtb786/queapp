@@ -14,8 +14,7 @@ require('./server/routes/app.routes')(app);
 // Mongo Setuping 
 mongo.Promise = global.Promise;
 mongo.connect(environment.dburl,function(err) {
-console.log('Mongo Error');
-console.log(err);
+// res.send(err);
 })
 
 
