@@ -2,11 +2,12 @@ let usermodel = require('../model/user.model');
 
 module.exports={
     LoginVerification : function(req,res) {
+
         try {
             let user = usermodel();
-            let id = req.id;
-            let password = req.password;
-            user.id  = id;
+            let id = req.body.id;
+            let password = req.body.password;
+            user.id  =id
             user.password  = password;
             user.save((error) =>{
                 if(error) {

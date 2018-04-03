@@ -1,0 +1,15 @@
+  
+$borders : 1px solid #c2cfd6;
+.admin-main-footer{
+
+    width:100px;
+    display: flex;
+    position: relative;
+    background-color: #fff;
+    border-bottom: $borders;
+     flex-direction: row;
+    background-color:white; 
+    height: 70px !important;
+    padding: 0;
+    margin: 0;
+}

@@ -1,0 +1,35 @@
+.mainbody{
+    background-color: #2F4F4F;
+    width:140px;
+    height:100%;
+    position:fixed;
+    left:0;
+    top:0;
+    color: white;
+    
+}
+
+
+.first {
+    position: relative;
+    font-family: monospace;
+    font-size: 14px;
+    height:5%;
+    background-color: red;
+    text-align: center;
+}
+
+.second {
+    position: relative;
+    padding :15px;
+    
+}
+
+.second mat-icon {
+    font-size: 15px;
+}
+
+.uname {
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+text-align: center;    
+}

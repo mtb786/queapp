@@ -2,10 +2,21 @@
 let express = require('express');
 let app = express();
 let mongo = require('mongoose');
-
+let bodypareser = require('body-parser');
 // Own Imports
 let environment = require('./server/config/app.config');
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
+app.use(bodypareser.json());
+app.use(bodypareser.urlencoded({
+    extended:true
+}));
 
 // Routing File Set for controller calling
 require('./server/routes/app.routes')(app);
