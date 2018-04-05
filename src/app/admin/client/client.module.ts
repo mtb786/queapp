@@ -11,8 +11,7 @@ import { SidebarComponent } from '.././sidebar/sidebar.component';
     imports : [
         // RouterModule.forRoot(clientroutes)
 
-    ],
-    exports : [ClientlistComponent]
+    ] ,   exports : [ClientlistComponent]
 })
 
 export class ClientModule {}

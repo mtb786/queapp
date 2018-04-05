@@ -22,7 +22,6 @@ pathMatch: 'full'
 @NgModule({
     imports : [ClientModule , CommonModule , MatIconModule, RouterModule.forRoot(adminRoutes)],
     exports : [ClientModule],
-    providers : [],
     declarations : [AdmindashboardComponent, SidebarComponent , AdminComponent , AdminheaderComponent, AdminFooterComponent, AdminSlideComponent],
     bootstrap: [ AdminComponent ]
 })

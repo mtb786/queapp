@@ -8,9 +8,18 @@ id : {
 },
 password : {
     type : String,
-    required : true,
-    unique : true
+    required : true
+},
+modetype: {
+	type : String,
+    required :true,
+    enum :["active","inactive"]
+} ,
+type: {
+	type : String, 
+	required: true ,
+	enum :["admin","primary","super","secondary"]
 }
 
 });
-module.exports = mongo.model('user', user);
+module.exports = mongo.model('userinfo', user);

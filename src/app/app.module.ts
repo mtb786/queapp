@@ -1,6 +1,7 @@
+import { CommonHttpService } from './../common/http.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpModule} from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ClientModule} from '../app/admin/client/client.module';
@@ -20,6 +21,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    
     BrowserAnimationsModule,
     AdminModule,
     NgbModule.forRoot(),
@@ -28,7 +31,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [CommonHttpService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
