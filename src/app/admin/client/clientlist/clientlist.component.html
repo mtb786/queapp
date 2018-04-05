@@ -9,11 +9,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Manish</td>
-      <td>Bhavnani</td>
-      <td>manish.bhavnani@brainvire.com</td>
-      <td>Active</td>
+    <tr *ngFor="let user of clientInformation; let i= index" >
+      <td>{{i+1}}</td>
+      <td>{{user.id}}</td>
+      <td>{{user.type}}</td>
+      <td>{{user.modetype}}</td>
       
     </tr>
   </tbody>

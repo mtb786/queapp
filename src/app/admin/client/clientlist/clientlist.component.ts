@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class ClientlistComponent implements OnInit {
 
   private userInfoListSubsctiption: Subscription;
+  public clientInformation: any = [];
   constructor(private http: CommonHttpService) { }
 
   ngOnInit() {
@@ -17,7 +18,14 @@ export class ClientlistComponent implements OnInit {
   private loadUserInfo() {
     this.userInfoListSubsctiption = this.http.callApi('userinfo').subscribe((res) => {
       console.log(res);
-    });
+      this.clientInformation = res.data;
+      console.log('Client Information');
+      console.log(this.clientInformation);
+
+    }, (err) => {
+   console.log(err);
+    }
+  );
 
   }
   ngAfterContentInit() {

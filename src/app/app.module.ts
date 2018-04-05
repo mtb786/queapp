@@ -8,6 +8,7 @@ import {ClientModule} from '../app/admin/client/client.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CommonModule} from '@angular/common';
 import {AdminModule} from './admin/admin.module';
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent }
@@ -22,7 +23,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpModule,
-    
+    CommonModule,
     BrowserAnimationsModule,
     AdminModule,
     NgbModule.forRoot(),
