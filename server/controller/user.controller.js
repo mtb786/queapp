@@ -59,8 +59,7 @@ module.exports = {
         }
     } ,
     UserLogin : function(req, res) {
-        try {
-           
+        try {  
               usermodel.findOne({'id' : req.body.id ,'password' : req.body.password }, function (errs,obj) {
                   if(errs) {
                       return res.status(400).send({'message' : errs});
