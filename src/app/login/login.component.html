@@ -1,12 +1,12 @@
 <div class="main container mx-auto" >
   <div class="main-child">
     <label>Email</label>
-    <input type="email">
+    <input type="email" [(ngModel)]="uid">
     <div class="password">
     <label >Password</label>
-    <input type="password">
+    <input type="password" [(ngModel)] = "upassword">
     <div class="submit">
-      <button>Login</button>
+      <button (click)="Login(uid, upassword)">Login</button>
     </div>
   </div>
   </div>

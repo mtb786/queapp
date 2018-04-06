@@ -13,8 +13,8 @@
       <td>{{i+1}}</td>
       <td>{{user.id}}</td>
       <td>{{user.type}}</td>
-      <td>{{user.modetype}}</td>
-      
+      <td><button (click) = "updatUserMode(user.id, user.modetype)" > {{user.modetype }}  </button> </td>
+        
     </tr>
   </tbody>
 </table>

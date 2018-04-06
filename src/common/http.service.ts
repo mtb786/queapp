@@ -19,12 +19,19 @@ export class CommonHttpService {
 /**
 * Returns an Observable for the HTTP GET request for the JSON resource.
 * @return {string[]} The Observable for the HTTP request.
-*/ 
-    callApi(apiname: string): Observable<any> {
-        console.log(environment.urlpath);
+*/
+    callApi(apiname: string ): Observable<any> {
+
         return this.http.get(`${environment.urlpath}/` +  apiname).map((res: Response) => res.json())
         //              .do(data => console.log('server data:', data))  // debug
         .catch(this.handleError);
+    }
+    callApi2(apiname: string , data?: any ):  Observable<any> {
+        console.log(data);
+        return this.http.post(`${environment.urlpath}/` +  apiname, data , '' ).map((res: Response) => res.json())
+        //              .do(data => console.log('server data:', data))  // debug
+        .catch(this.handleError);
+
     }
 
 /**
