@@ -1,5 +1,5 @@
 let usermodel = require('../model/user.model');
-
+let jwt = require('jsonwebtoken');
 module.exports = {
     LoginVerification: function (req, res) {
 
@@ -41,42 +41,60 @@ module.exports = {
     UserUpdate: function (req, res) {
         try {
             var query = { 'id': req.body.id };
-            if(query['id'] !== undefined) {
-                var data = { 'modetype' : req.body.modetype } ;
-                usermodel.findOneAndUpdate(query, data, function (err, doc) {
-                    console.log(doc);
-                    if (err) { return res.send(500, { error: err });
+            if (query['id'] !== undefined) {
+                const tokken = req.headers['tokken'];
+                var data = { 'modetype': req.body.modetype };
+                if (!tokken) { 
+                    jwt.verify(tokken,'A22' , function(err,doc) {
+                        if(err) {
+                            return res.status(500).send({message : 'Tokken Expired'});
+                        } else {
+                            usermodel.findOneAndUpdate(query, data, function (err, doc) {
+                                if (err) {
+                                    return res.send(500, { error: err });
+                                } else {
+                                    return res.send(200, { status: true, message: 'User is updated' });
+                                }
+                            });
+                        }
+
+
+                    });
+                 
                 } else {
-                    return res.send(200,{status : true , message : 'User is updated' });
+                    return res.send(200, { status: true, message: 'User id is missing' });
                 }
-                });    
             } else {
-                return res.send(200,{status : true, message : 'User id is missing'});
+                return res.send(200 , {status : true ,message : 'Please Provide Tokken'})
             }
-            
+
         } catch (err) {
 
         }
-    } ,
-    UserLogin : function(req, res) {
-        try {  
-              usermodel.findOne({'id' : req.body.id ,'password' : req.body.password }, function (errs,obj) {
-                  if(errs) {
-                      return res.status(400).send({'message' : errs});
-                  } else {
-                      if(!obj) {
-                        return res.status(200).send({ 'login' : false, 'message' : 'Not Valid Login','errs' : errs });   
-                      } else {
-                          if(obj['modetype'] === 'active') {
-                        return res.status(200).send({'status' : true , 'login' : true , 'message' : 'Valid Login' });   
-                          } else {
-                            return res.status(200).send({'status' : false , 'login' : true , 'message' : 'User Is Not In Active Mode ' });     
-                          }
-                      }
-                  }
-                })  
-        } catch(err) {
-            return res.status(400).send({'message' : err});
+    },
+    UserLogin: function (req, res) {
+        try {
+            usermodel.findOne({ 'id': req.body.id, 'password': req.body.password }, function (errs, obj) {
+                if (errs) {
+                    return res.status(400).send({ 'message': errs });
+                } else {
+                    if (!obj) {
+                        return res.status(200).send({ 'login': false, 'message': 'Not Valid Login', 'errs': errs });
+                    } else {
+                        if (obj['modetype'] === 'active') {
+
+                            var jwttokken = jwt.sign({ id: req.body.id }, 'A22', {
+                                expiresIn: 86400
+                            });
+                            return res.status(200).send({ 'status': true, 'login': true, 'message': 'Valid Login', data: jwttokken });
+                        } else {
+                            return res.status(200).send({ 'status': false, 'login': true, 'message': 'User Is Not In Active Mode ' });
+                        }
+                    }
+                }
+            })
+        } catch (err) {
+            return res.status(400).send({ 'message': err });
         }
     }
 
