@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import { RouterModule , Routes} from '@angular/router';
 import { ClientlistComponent} from './clientlist/clientlist.component';
 import {CommonModule} from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '.././sidebar/sidebar.component';
 // const clientroutes:  Routes = [{
 //     path: 'client', component : ClientlistComponent
@@ -10,7 +11,8 @@ import { SidebarComponent } from '.././sidebar/sidebar.component';
 @NgModule({
     declarations : [ClientlistComponent],
     imports : [
-        CommonModule
+        CommonModule,
+        FormsModule
         // RouterModule.forRoot(clientroutes)
 
     ] ,   exports : [ClientlistComponent]

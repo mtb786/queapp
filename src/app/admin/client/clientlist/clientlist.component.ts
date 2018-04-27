@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class ClientlistComponent implements OnInit {
 
   private userInfoListSubsctiption: Subscription;
+  public selectedUserType: any;
   private activeinactiveUpdateUserSubscription: Subscription;
   public clientInformation: any = [];
   constructor(private http: CommonHttpService) { }
@@ -28,6 +29,11 @@ export class ClientlistComponent implements OnInit {
    console.log(err);
     }
   );
+
+  }
+  public userBaseFilter(selected: any) {
+  const optionValue: any = selected.target.value;
+  
 
   }
   public ngAfterContentInit() {
