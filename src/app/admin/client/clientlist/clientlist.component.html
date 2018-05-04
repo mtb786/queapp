@@ -1,4 +1,4 @@
-<form><p>User Type</p>
+<!-- <form><p>User Type</p>
 <select  [(ngModel)]="selectedUserType" (change)="userBaseFilter($event)">
   <option value="admin">Admin</option>
   <option value="primary">Primary</option>
@@ -8,22 +8,66 @@
 <input type="radio" name="gender" value="male" checked>Active
   <input type="radio" name="gender" value="female">Inactive
 </form>
-<table class="table table-dark">
-  <thead>
-    <tr>
-      <th> No </th>
-      <th>User id</th>
-      <th>Mode Type </th>
-      <th>Present </th>
+-->
+<div class="dahboard">
+    <span>
+        <input type="search" class="searchInput">
+      </span>
+  <span>
+  <mat-form-field>
+    <mat-select [(value)]="selected" placeholder="User Type">
+      <mat-option>None</mat-option>
+      <mat-option value="option1">Super Admin</mat-option>
+      <mat-option value="option2">Admin</mat-option>
+      <mat-option value="option3">Primary</mat-option>
+      <mat-option value="option3">Secondary</mat-option>
+    </mat-select>
+  </mat-form-field>
+</span>
+<span class="dahboard">
+  <mat-form-field>
+    <mat-select [(value)]="selected" placeholder="Mode">
+      <mat-option>None</mat-option>
+      <mat-option value="option1">Option 1</mat-option>
+      <mat-option value="option2">Option 2</mat-option>
+      <mat-option value="option3">Option 3</mat-option>
+    </mat-select>
+  </mat-form-field>
+</span>
+<div>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th> No </th>
+            <th>User id</th>
+            <th>Mode Type </th>
+            <th>Location  </th>
+            <th>Created By </th>
+            <th>Created On </th>
+            <th>Active </th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of clientInformation; let i= index" >
+            <td>{{i+1}}</td>
+            <td>{{user.id}}</td>
+            
+            <td>{{user.type}}</td>
+            <td>{{user.type}}</td>
+            <td>{{user.type}}</td>
+            <td>{{user.type}}</td>
+            <td><mat-slide-toggle>Slide me </mat-slide-toggle>  <i style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">delete_forever</i> <i style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">mode_edit</i> </td>
+           
+          </tr>
+        </tbody>
+      </table> 
       
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of clientInformation; let i= index" >
-      <td>{{i+1}}</td>
-      <td>{{user.id}}</td>
-      <td>{{user.type}}</td>
-      <td><button (click) = "updatUserMode(user.id, user.modetype)" > {{user.modetype }}  </button> </td>        
-    </tr>
-  </tbody>
-</table>
+      
+
+</div>
+<mat-paginator [length]="100"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
+</div>

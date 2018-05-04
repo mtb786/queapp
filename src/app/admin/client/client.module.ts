@@ -4,18 +4,33 @@ import { ClientlistComponent} from './clientlist/clientlist.component';
 import {CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '.././sidebar/sidebar.component';
-// const clientroutes:  Routes = [{
+import { MatButtonModule , MatPaginatorModule, MatSlideToggleModule,   MatSelectModule , MatSlideToggle , MatTooltipModule, MatMenuModule, MatIconModule, MatInputModule, MatOptgroup , MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatCardModule } from '@angular/material';
+// const clientroutes:  Routes = [{ 
 //     path: 'client', component : ClientlistComponent
 // }];
-
+const materialModules = [
+    MatButtonModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatSlideToggleModule
+];
 @NgModule({
     declarations : [ClientlistComponent],
     imports : [
         CommonModule,
-        FormsModule
+        FormsModule,
+        ...materialModules
         // RouterModule.forRoot(clientroutes)
 
-    ] ,   exports : [ClientlistComponent]
+    ] ,   exports : [ClientlistComponent , ...materialModules]
 })
 
 export class ClientModule {}

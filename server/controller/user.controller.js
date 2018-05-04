@@ -1,5 +1,6 @@
     let usermodel = require('../model/user.model');
     let jwt = require('jsonwebtoken');
+    const nodemailer = require('nodemailer');
     module.exports = {
         LoginVerification: function (req, res) {
 
@@ -9,11 +10,17 @@
                 let password = req.body.password;
                 let modetype = req.body.modetype;
                 let type = req.body.type;
+                let location =req.body.location;
+                let createdby =req.body.createdby;
+                
 
                 user.id = id
                 user.password = password;
                 user.modetype = modetype;
                 user.type = type;
+                user.location = location;
+                user.createdby = createdby;
+                
                 user.save((error) => {
                     if (error) {
                         res.status(400).send({ status: false, message: error });
@@ -82,7 +89,9 @@
                                 var jwttokken = jwt.sign({ id: req.body.id }, 'A22', {
                                     expiresIn: 86400
                                 });
-                                return res.status(200).send({ 'status': true, 'login': true, 'message': 'Valid Login', data: jwttokken });
+                                
+                                const data = {'tokken' :jwttokken , 'user_id' : req.body.id }
+                                return res.status(200).send({ 'status': true, 'login': true, 'message': 'Valid Login', data: data });
                             } else {
                                 return res.status(200).send({ 'status': false, 'login': true, 'message': 'User Is Not In Active Mode ' });
                             }
@@ -96,18 +105,64 @@
         UserSearch : function(req,res) {
             try {
                 var reqType = req.query.type;
-                var modetype = req.query.modetpye;
-                
-                usermodel.find({$or: [{'type' : reqType} , {'modetype' : modetype}] }).then(function(findres,finderr){
-                    if(finderr) {
-                    res.status(400).send({message: finderr});    
+                var modetype = req.query.modetype; 
+                usermodel.find({$or: [{'type' : reqType} , {'modetype' : modetype}] }).then(function(findres, err){
+                    console.log(findres)
+               
+                    if(findres) {
+                    res.status(200).send({message: findres});    
                     } else {
-                    res.status(200).send({data : findres });     
+                    
+                    res.status(400).send({ message :err });     
                     }
                 });
             }
             catch(err) {
                 console.error(err);
             }
-        }
+        },
+        UserForgetPassword : function (req,res) {
+            const id = req.body.id;
+            console.log(id);
+            if(id) {
+                usermodel.find({'id' :req.body.id}).then(function(forgetresponse,forgeterror){ 
+                    if(forgetresponse.length >0) {
+                        nodemailer.createTestAccount((err,account) => {
+                            let transporter = nodemailer.createTransport({
+                                host: 'smtp.gmail.com',
+                                port: 465,
+                                secure: true, 
+                                auth: {
+                                    user: "grammeranalysis@gmail.com", 
+                                    pass: "Qwerty@1001"  
+                                }
+                            });
+                            let registerMailOptions = {
+                                from: '"Bhavnani Manish"<grammeranalysis@gmail.com>', 
+                                to: id, 
+                                subject: 'Registerd Mail', 
+                                text: 'Thanks For Registration', 
+                                html: '<a href="http://localhost:4200">Reset Link</a>'
+                            };
+                            transporter.sendMail(registerMailOptions, (error, info) => {
+                                if (error) {
+                                    return console.log(error);
+                                } else {                                        
+                                // return res.status(200).send({ status : true,data : user});
+                                return res.send({message : 'Reset link is sended to your register email id'});
+                                }
+                            });			
+                        }); 
+                    } else if(forgeterror) {
+                      return res.status(500).send({message : 'Someting went wrong', data :forgeterror })
+                    } 
+                    else {
+                      return res.status(200).send({message : 'Email is not registerd'})     
+                    }
+                  });
+            } else {
+                return res.status(200).send({message : 'Provide email id'})
+            }
+            
+          }
     }

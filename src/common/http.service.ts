@@ -1,7 +1,7 @@
 
 import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response , RequestOptions , URLSearchParams  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -27,13 +27,23 @@ export class CommonHttpService {
         .catch(this.handleError);
     }
     callApi2(apiname: string , data?: any ):  Observable<any> {
-        console.log(data);
         return this.http.post(`${environment.urlpath}/` +  apiname, data , '' ).map((res: Response) => res.json())
         //              .do(data => console.log('server data:', data))  // debug
         .catch(this.handleError);
 
     }
+    callApiParams(apiname: string , paramss?: any) {
+        console.log(apiname);
+        console.log(paramss);
+        const params: URLSearchParams = new URLSearchParams();
+        params.set('type', paramss);
+        params.set('modetype', 'admin');
 
+        const requestOptions = new RequestOptions();
+        requestOptions.search = params;
+
+        return this.http.get(`${environment.urlpath}/` + apiname, requestOptions ).map((res: Response) =>  res.json()).catch(this.handleError);
+    }
 /**
 * Handle HTTP error
 */

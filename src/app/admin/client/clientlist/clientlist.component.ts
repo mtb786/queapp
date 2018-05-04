@@ -1,16 +1,19 @@
 import { CommonHttpService } from './../../../../common/http.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import {MatSelect} from '@angular/material';
 @Component({
   selector: 'app-clientlist',
   templateUrl: './clientlist.component.html',
   providers : [CommonHttpService],
-  styleUrls: ['./clientlist.component.css'],
+  styleUrls: ['./clientlist.component.scss'],
 })
 export class ClientlistComponent implements OnInit {
 
   private userInfoListSubsctiption: Subscription;
+  private userFilterSubscription : Subscription;
   public selectedUserType: any;
+  private userSearchListSubscriptioin: Subscription;
   private activeinactiveUpdateUserSubscription: Subscription;
   public clientInformation: any = [];
   constructor(private http: CommonHttpService) { }
@@ -33,7 +36,12 @@ export class ClientlistComponent implements OnInit {
   }
   public userBaseFilter(selected: any) {
   const optionValue: any = selected.target.value;
-  
+  console.log(optionValue);
+  this.userFilterSubscription = this.http.callApiParams('usersearch', optionValue).subscribe((res) => {
+    console.log(res);
+    this.clientInformation = res.data;
+  });
+
 
   }
   public ngAfterContentInit() {
@@ -41,7 +49,7 @@ export class ClientlistComponent implements OnInit {
   }
 
   public ngOnDestroy() {
-    if(this.userInfoListSubsctiption!== undefined) {
+    if(this.userInfoListSubsctiption !== undefined) {
       this.userInfoListSubsctiption.unsubscribe();
     }
     if (this.activeinactiveUpdateUserSubscription !== undefined) {

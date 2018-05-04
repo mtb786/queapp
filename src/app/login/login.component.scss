@@ -1,3 +1,4 @@
+$borders : 1px solid #c2cfd6;
 .main {
     background-color: #423f4e;
     opacity: 0.7;
@@ -36,5 +37,36 @@ input {
     margin-top:10px;
     text-align: center;
 }
+
+.headernavbar {
+    position: relative;
+    display: flex;
+     flex-direction: row;
+     height: 70px !important;
+     padding: 0;
+     margin: 0;
+     background-color: #fff;
+     border-bottom: $borders;
+     i{
+        text-align: end;
+        margin-left: 20px;
+        color: blue;
+    }
+   
+     p {
+         text-align: left; 
+         width:100%;
+         font-size: 30px;
+         font-family: monospace;
+         padding:15px;
+     }
+     button {
+     height: 35px;
+     width: 101px;
+    margin-right: 20px;
+     margin-top: 20px;
+    }
+}
+
 
 /* background-color:#314D68; */

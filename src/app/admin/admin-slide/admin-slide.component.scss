@@ -1,9 +1,9 @@
 .aside-menu {
-    background-color: black;
+    background-color: #3f4457;
     left : 0;
     flex-direction: column;
     top : 0;
-    height: 500px;
+    height: 590px;
     width:200px;
     margin:0;
     padding : 0;
@@ -29,5 +29,15 @@
         position: absolute;
         top:20px;
         right:0px;
+    }
+    .adminBoard {
+        background-color:whitesmoke;
+        height:30px;
+        p{
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
     }
 }

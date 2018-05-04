@@ -1,13 +1,82 @@
-<div class="main container mx-auto" >
-  <div class="main-child">
-    <label>Email</label>
-    <input type="email" [(ngModel)]="uid">
-    <div class="password">
-    <label >Password</label>
-    <input type="password" [(ngModel)] = "upassword">
-    <div class="submit">
-      <button (click)="Login(uid, upassword)">Login</button>
+<header class="headernavbar">
+  <p>
+    <i class="material-icons">turned_in_not</i> Quanapp</p>
+  <button type="button" class="btn btn-primary" (click)="login(true)">Login</button>
+  <button type="button" class="btn btn-primary">Sign Up</button>
+</header>
+
+<div  *ngIf="loginFlag" class="row" style="padding: 50px; margin-left: 400px;"> 
+  <div class="col s7" style="background: white; box-shadow: rgba(0, 0, 0, 0.1) 0px 40px 80px 0px; border-radius: 6px; margin-top: 10px; padding: 0px;">
+    <div style="padding: 12px; height: 70px; border-radius: 5px 5px 0px 0px; background: linear-gradient(90deg, rgb(79, 69, 214) 0%, rgb(103, 94, 208) 100%); color: white;">
+      <div style="font-size: 24px; color: rgb(241, 241, 241);">Login</div>
+   </div>
+    <div style="min-height: 200px; background: white; border-radius: 0px 0px 5px 5px;">
+      <div class="row" style="padding: 20px;">
+        <div data-radium="true">
+          <div class="container" data-radium="true" style="width: 80%;">
+            <div class="col s12 valign-wrapper" data-radium="true" style="justify-content: center;">
+              <div data-radium="true" style="margin: 10px;">
+                <div data-radium="true">
+                
+                </div>
+              </div>
+            </div>
+            <div class="col s12  center-align" data-radium="true">
+              <div data-radium="true" style="padding: 2px 2px; cursor: pointer; color: rgb(83, 103, 255); margin: 5px; font-weight: 500;">
+                  <label><i class="material-icons">mail</i> Email </label> 
+                  <input type="email" [(ngModel)]="uid">
+                  <label > <i class="material-icons">lock</i> Password</label>
+                  <input type="password" [(ngModel)] = "upassword">
+                  <div class="submit"></div>
+                    <button  class="btn btn-primary" (click)="Login(uid, upassword)">Login</button>
+                    <span data-radium="true" style="cursor: pointer; color: rgb(83, 103, 255); margin: 10px; padding: 10px; font-weight: 500;" (click)="forgetPassword(true)" >Forgot password? </span>
+                  
+                  </div>
+            </div>
+          
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="col s1 offset-s1" style="cursor: pointer; font-size: 42px;">
+    <i class="material-icons" style="font-size: 42px;" (click)="login(false)" > close</i>
   </div>
 </div>
+
+<div  *ngIf="forgetFlag" class="row" style="padding: 50px; margin-left: 400px;"> 
+    <div class="col s7" style="background: white; box-shadow: rgba(0, 0, 0, 0.1) 0px 40px 80px 0px; border-radius: 6px; margin-top: 10px; padding: 0px;">
+      <div style="padding: 12px; height: 70px; border-radius: 5px 5px 0px 0px; background: linear-gradient(90deg, rgb(79, 69, 214) 0%, rgb(103, 94, 208) 100%); color: white;">
+        <div style="font-size: 24px; color: rgb(241, 241, 241);">Forget Password</div>
+     </div>
+      <div style="min-height: 200px; background: white; border-radius: 0px 0px 5px 5px;">
+        <div class="row" style="padding: 20px;">
+          <div data-radium="true">
+            <div class="container" data-radium="true" style="width: 80%;">
+              <div class="col s12 valign-wrapper" data-radium="true" style="justify-content: center;">
+                <div data-radium="true" style="margin: 10px;">
+                  <div data-radium="true">
+                  
+                  </div>
+                </div>
+              </div>
+              <div class="col s12  center-align" data-radium="true">
+                <div data-radium="true" style="padding: 2px 2px; cursor: pointer; color: rgb(83, 103, 255); margin: 5px; font-weight: 500;">
+                    <label><i class="material-icons">mail</i> Email </label> 
+                    <input type="email" [(ngModel)]="uid">
+                    <div class="submit"></div>
+                      <button  class="btn btn-primary" (click)="Login(uid, upassword)">Submit</button>
+                 </div>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s1 offset-s1" style="cursor: pointer; font-size: 42px;">
+      <i class="material-icons" style="font-size: 42px;" (click)="forgetPassword(false)" > close</i>
+    </div>
+  </div>
+  
+  

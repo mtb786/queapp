@@ -8,4 +8,5 @@ module.exports = function(app) {
     app.post('/userupdate', cors(), USER_CONTROLLER.UserUpdate);
     app.post('/login',cors(), USER_CONTROLLER.UserLogin);
     app.get('/usersearch',cors(),USER_CONTROLLER.UserSearch);
-}
+    app.post('/forgetpassword',cors(),USER_CONTROLLER.UserForgetPassword)
+}                                                                                                                                 
