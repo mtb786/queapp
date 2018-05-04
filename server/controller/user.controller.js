@@ -121,6 +121,18 @@
                 console.error(err);
             }
         },
+        UserEdit : function (req,res) { 
+            const id =req.body.id;
+            if(id) {
+            return res.send({data : id});
+            } else {
+                
+            }
+           
+         },
+        UserRemove : function(req,res) {
+            console.log(req.body.id);
+         },
         UserForgetPassword : function (req,res) {
             const id = req.body.id;
             console.log(id);
