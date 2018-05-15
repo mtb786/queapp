@@ -4,7 +4,7 @@ import { ClientlistComponent} from './clientlist/clientlist.component';
 import {CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '.././sidebar/sidebar.component';
-import { MatButtonModule , MatPaginatorModule, MatSlideToggleModule,   MatSelectModule , MatSlideToggle , MatTooltipModule, MatMenuModule, MatIconModule, MatInputModule, MatOptgroup , MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatCardModule } from '@angular/material';
+import { MatButtonModule ,MatDialogModule, MatPaginatorModule, MatSlideToggleModule,   MatSelectModule , MatSlideToggle , MatTooltipModule, MatMenuModule, MatIconModule, MatInputModule, MatOptgroup , MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatCardModule } from '@angular/material';
 // const clientroutes:  Routes = [{ 
 //     path: 'client', component : ClientlistComponent
 // }];
@@ -20,7 +20,8 @@ const materialModules = [
     MatSelectModule,
     MatTooltipModule,
     MatPaginatorModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule
 ];
 @NgModule({
     declarations : [ClientlistComponent],

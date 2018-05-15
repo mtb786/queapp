@@ -34,10 +34,10 @@ mongo.connect(environment.dburl,function(err) {
 app.get('/',function(req,res){
 res.send('Welcome To QuoteApp');
 });
-
+var port = process.env.PORT || 8080;
 
 // Port Setuping
-app.listen(environment.serverport);
+app.listen(port);
 
 
 // --- Extra Api Server Code

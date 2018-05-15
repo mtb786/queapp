@@ -126,12 +126,21 @@
             if(id) {
             return res.send({data : id});
             } else {
-                
+            return res.send({message : 'Id is missing'});    
             }
            
          },
-        UserRemove : function(req,res) {
-            console.log(req.body.id);
+         UserDelete : function(req,res) {
+       
+            const id = req.body.id;
+            usermodel.deleteOne({"id" : id}).then(function(delResponse,delError) {
+
+            if(delResponse) {
+              return res.status(200).send({message : 'User is deleted'});
+            } else {
+              return res.status(400).send({message : 'Something went wrong'});
+            }
+            })
          },
         UserForgetPassword : function (req,res) {
             const id = req.body.id;

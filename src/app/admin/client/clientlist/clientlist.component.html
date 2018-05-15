@@ -57,7 +57,7 @@
             <td>{{user.type}}</td>
             <td>{{user.type}}</td>
             <td>{{user.type}}</td>
-            <td><mat-slide-toggle>Slide me </mat-slide-toggle>  <i style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">delete_forever</i> <i style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">mode_edit</i> </td>
+            <td><mat-slide-toggle>Slide me </mat-slide-toggle>  <i (click)="deleteUser(user.id,$event)" style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">delete_forever</i> <i style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">mode_edit</i> </td>
            
           </tr>
         </tbody>

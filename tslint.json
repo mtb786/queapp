@@ -123,6 +123,9 @@
       "app",
       "camelCase"
     ],
+  
+      "extends": ["tslint:recommended", "tslint-sonarts"],
+    
     "component-selector": [
       true,
       "element",
