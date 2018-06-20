@@ -2,8 +2,11 @@
 
     <nav class="btn-group">
         <ul> 
-          <li class="setting" ><mat-icon>settings</mat-icon> <a> Settings  </a> <mat-icon  (click)="showDialog('setting')" >arrow_drop_down</mat-icon></li>
+          <li class="setting" ><mat-icon>dashboard</mat-icon> <a routerLinkActive="active" [routerLink]="['./dashboard']" > Dashboard  </a></li>
+          <li class="setting" ><mat-icon>settings</mat-icon> <a > Admin  </a> <mat-icon  (click)="showDialog('setting')" >arrow_drop_down</mat-icon></li>
+          
         </ul>
+        
         <div class="settingtype"  *ngIf="accordinMangage['setting'] === true" style ="color: white" >
           <ul>
             <li> <a routerLinkActive="active" [routerLink]="['./client']" > Users </a></li>

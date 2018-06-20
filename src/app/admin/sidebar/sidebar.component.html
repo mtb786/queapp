@@ -1,12 +1,18 @@
 <div class="mainbody">
-<div class="first"> <p>Quaapp Admin</p> </div>
-<div class="second">
-<mat-icon >settings</mat-icon> 
-Settings <div *ngIf="settingtoggle===false"(click)="settingToggle($event)"> &nbsp; + </div>
-<a *ngIf="settingtoggle===true"(click)="settingToggle($event)">&nbsp;&nbsp; - </a>
-<div *ngIf="settingtoggle === true"> 
-    <ul>
-        <li><a routerLink="/admin/clientlist" >Users</a></li>
-    </ul>
-</div>
-</div>
+    <div class="first">
+        <p>Quaapp Admin</p>
+    </div>
+
+    <div class="second">
+        <mat-icon>settings</mat-icon>
+        Settings
+        <div *ngIf="settingtoggle===false" (click)="settingToggle($event)"> &nbsp; + </div>
+        <a *ngIf="settingtoggle===true" (click)="settingToggle($event)">&nbsp;&nbsp; - </a>
+        <div *ngIf="settingtoggle === true">
+            <ul>
+                <li>
+                    <a routerLink="/admin/clientlist">Users</a>
+                </li>
+            </ul>
+        </div>
+    </div>

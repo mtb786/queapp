@@ -13,7 +13,7 @@ module.exports = function(app) {
     app.get('/usersearch',cors(),USER_CONTROLLER.UserSearch);
     app.post('/forgetpassword',cors(),USER_CONTROLLER.UserForgetPassword)
     app.get('/filter',cors(),USER_CONTROLLER.UserFilterObject);
-
+    app.get('/usercsv',cors(),USER_CONTROLLER.convertUserCSv)  
 
     // lead controller export
 

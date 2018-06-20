@@ -1,7 +1,10 @@
 let usermodel = require('../model/user.model');
 let jwt = require('jsonwebtoken');
+
+const json2csv = require('json2csv').parse;
+const fs = require('fs');
 const nodemailer = require('nodemailer');
-    module.exports = {
+module.exports = {
     LoginVerification: function (req, res) {
 
         try {
@@ -150,6 +153,46 @@ const nodemailer = require('nodemailer');
 
 
     },
+
+    convertUserCSv: function (req, res) {
+        console.log('scs');
+        var fields = ['car.make', 'car.model', 'price', 'color'];
+        var myCars = [
+
+            {
+                "car": {
+                    "make": "Hundai", "model": "sonata"
+                },
+                "price": 30000,
+                "color": "white"
+            },
+            {
+                "car": {
+                    "make": "Audi", "model": "A3"
+                },
+                "price": 40000,
+                "color": "blue"
+            }, {
+                "car": { "make": "BMW", "model": "F20" },
+                "price": 35000,
+                "color": "black"
+            }, {
+                "car": { "make": "Porsche", "model": "9PA AF1" },
+                "price": 60000,
+                "color": "green"
+            }
+        ];
+        var csv = json2csv.pa({ data: myCars, fields: fields });
+        usermodel.findOne({},function(err,obj) {
+
+       });     
+        fs.writeFile('file.csv', csv, function (err) {
+            if (err) throw err;
+            console.log('fileed');
+        });
+
+    },
+
 
     UserForgetPassword: function (req, res) {
         const id = req.body.id;

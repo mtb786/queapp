@@ -11,10 +11,16 @@ import { AdminheaderComponent} from '../admin/admin-header/adminheader.component
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 import { AdminSlideComponent } from './admin-slide/admin-slide.component';
 import { Authguard } from '../_guards/auth.guards';
+import { DashboardComponent} from './dashboard/dashboard.component'
 const adminRoutes: Routes = [{
 path : 'admin' , component : AdminComponent,
 pathMatch: 'full'
 },
+{
+    path: 'dashboard' , component : DashboardComponent,
+    pathMatch :'full'
+},
+
 {
     path : 'admin/dashboard' , component : AdmindashboardComponent , canActivate: [Authguard],
     children : [ {path: 'client', component : ClientlistComponent , pathMatch: 'full'  } ]
@@ -23,7 +29,7 @@ pathMatch: 'full'
 @NgModule({
     imports : [ClientModule , CommonModule , MatIconModule, RouterModule.forRoot(adminRoutes)],
     exports : [ClientModule],
-    declarations : [AdmindashboardComponent, SidebarComponent , AdminComponent , AdminheaderComponent, AdminFooterComponent, AdminSlideComponent],
+    declarations : [AdmindashboardComponent, DashboardComponent, SidebarComponent , AdminComponent , AdminheaderComponent, AdminFooterComponent, AdminSlideComponent],
     bootstrap: [ AdminComponent ]
 })
 

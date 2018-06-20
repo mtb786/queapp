@@ -23,11 +23,12 @@
     .setting {
         display: flex;
         z-index: 99;
+        margin-top: 20px;
         position: relative;
     }
     .settingtype {
         position: absolute;
-        top:20px;
+        top:90px;
         right:0px;
     }
     .adminBoard {

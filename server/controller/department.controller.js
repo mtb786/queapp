@@ -11,12 +11,11 @@ module.exports = {
                     
                 } else { 
                 const _id = obj._id;
-                const id = departmentCollection.count(); 
-                console.log('Total Value' +  id); 
+                department.id = req.body.id; 
                 department.dep_Id = req.body.id;
                 department.dep_Name = req.body.dep_Name;
                 department.dep_Location = req.body.dep_Location;
-                department.dep_Description = req.body.dep_Description;
+                department.dep_Description = req.body.dep_Desscription;
                 department.created_By = _id;
                 department.save((depModelError) => {
                     if (depModelError) {

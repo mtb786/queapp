@@ -2,6 +2,7 @@ import { CommonHttpService } from './../../../../common/http.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-clientlist',
   templateUrl: './clientlist.component.html',
@@ -9,14 +10,31 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./clientlist.component.scss'],
 })
 export class ClientlistComponent implements OnInit {
+  closeResult: string;
+
+  // API Subscription Instance
 
   private userInfoListSubsctiption: Subscription;
   private userFilterSubscription: Subscription;
-  public selectedUserType: any;
   private userSearchListSubscriptioin: Subscription;
   private activeinactiveUpdateUserSubscription: Subscription;
+  private AddUserSubscription: Subscription;
+
+  // Input Bind Instances
+
+  public userData: any = {
+    "id": '',
+    "name": '',
+    "password": '',
+    "modetype": 'active',
+    "type": '',
+    "location": '',
+    "createdby": "manish"
+  }
+
+  public selectedUserType: any;
   public clientInformation: any = [];
-  constructor(private http: CommonHttpService, public dialog: MatDialog) { }
+  constructor(private http: CommonHttpService, private modalService: NgbModal, public dialog: MatDialog) { }
 
   ngOnInit() {
     console.log('sdasd');
@@ -76,23 +94,77 @@ export class ClientlistComponent implements OnInit {
   }
 
   public deleteUser(id: string, event) {
-  //  const confFlag =  window.confirm('Are you sure want to remove id');
-   
+    //  const confFlag =  window.confirm('Are you sure want to remove id');
+  }
+  public saveUser(): void {
+    const reqDATA: any = {
+      "id": "bhavnani0@gmail.com",
+      "name": "Manish",
+      "password": "test@123",
+      "modetype": "active",
+      "type": "admin",
+      "location": "india",
+      "createdby": "manish"
+    }
+
+
+
+    this.AddUserSubscription = this.http.callApi2('user', this.userData).subscribe((res) => {
+      console.log(res);
+    });
   }
   public removeUser(id) {
-  //  const data = { 'id' : id };
-  //   this.http.callApi2('userdelete', data).subscribe((res) => {
-  //     console.log(res);
-  //   });
-  //   const dialogRef = this.dialog.open(ClientlistComponent, {
-  //     width: '250px',
-  //     data: { name: 'asd', animal: 'asdsad' }
-  //   });
+    //  const data = { 'id' : id };
+    //   this.http.callApi2('userdelete', data).subscribe((res) => {
+    //     console.log(res);
+    //   });
+    //   const dialogRef = this.dialog.open(ClientlistComponent, {
+    //     width: '250px',
+    //     data: { name: 'asd', animal: 'asdsad' }
+    //   });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
+    //   dialogRef.afterClosed().subscribe(result => {
+    //     console.log('The dialog was closed');
+    //   });
 
-}
+  }
+
+
+  open(content) {
+    console.log('asdsad');
+
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

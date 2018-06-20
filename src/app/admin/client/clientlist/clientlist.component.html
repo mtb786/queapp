@@ -9,11 +9,12 @@
   <input type="radio" name="gender" value="female">Inactive
 </form>
 -->
+
 <div class="dahboard">
-    <span>
+  <!-- <span>
         <input type="search" class="searchInput">
-      </span>
-  <span>
+      </span>  -->
+  <!-- <span>
   <mat-form-field>
     <mat-select [(value)]="selected" placeholder="User Type">
       <mat-option>None</mat-option>
@@ -23,8 +24,8 @@
       <mat-option value="option3">Secondary</mat-option>
     </mat-select>
   </mat-form-field>
-</span>
-<span class="dahboard">
+</span> -->
+  <!-- <span class="dahboard">
   <mat-form-field>
     <mat-select [(value)]="selected" placeholder="Mode">
       <mat-option>None</mat-option>
@@ -33,41 +34,105 @@
       <mat-option value="option3">Option 3</mat-option>
     </mat-select>
   </mat-form-field>
-</span>
-<div>
-    <table class="table table-hover">
-        <thead>
-          <tr>
-            <th> No </th>
-            <th>User id</th>
-            <th>Mode Type </th>
-            <th>Location  </th>
-            <th>Created By </th>
-            <th>Created On </th>
-            <th>Active </th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of clientInformation; let i= index" >
-            <td>{{i+1}}</td>
-            <td>{{user.id}}</td>
-            
-            <td>{{user.type}}</td>
-            <td>{{user.type}}</td>
-            <td>{{user.type}}</td>
-            <td>{{user.type}}</td>
-            <td><mat-slide-toggle>Slide me </mat-slide-toggle>  <i (click)="deleteUser(user.id,$event)" style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">delete_forever</i> <i style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">mode_edit</i> </td>
-           
-          </tr>
-        </tbody>
-      </table> 
-      
-      
+</span> -->
 
+
+  <div>
+    <button type="button" class="btn btn-primary" (click)="open(content)">Add users</button>
+    <button type="button" class="btn btn-primary" (click)="exportExcel()">Export Excel</button>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th> No </th>
+          <th>User id</th>
+          <th>Mode Type </th>
+          <th>Location </th>
+          <th>Created By </th>
+          <th>Created On </th>
+          <th>Active </th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of clientInformation; let i= index">
+          <td>{{i+1}}</td>
+          <td>{{user.id}}</td>
+
+          <td>{{user.type}}</td>
+          <td>{{user.type}}</td>
+          <td>{{user.type}}</td>
+          <td>{{user.type}}</td>
+          <td>
+            <mat-slide-toggle>Slide me </mat-slide-toggle>
+            <i (click)="deleteUser(user.id,$event)" style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">delete_forever</i>
+            <i style="color:blue;color: blue;font-size: larger;margin-left: 10px;" class="material-icons">mode_edit</i>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+
+
+  </div>
+  <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
 </div>
-<mat-paginator [length]="100"
-              [pageSize]="5"
-              [pageSizeOptions]="[5, 10, 25, 100]">
-</mat-paginator>
-</div>
+
+
+
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form >
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <label>Username</label>
+            <input type="text"   [(ngModel)]="userData.name"  name="name"/>
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <label>Email ID</label>
+            <input type="email"  [(ngModel)]="userData.id" name="id" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <label>Password </label>
+            <input type="password"  [(ngModel)]="userData.password" name="password" />
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <label>Confirm Password </label>
+            <input type="text"  [(ngModel)]="userConfirom" name="confirom" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 com-sm-12 col-xs-12">
+            <label> Status</label>
+            <input type="text" ([ngModel])="userData.modetype" name="modetype"  >
+          </div>
+          <div class="col-md-6 com-sm-12 col-xs-12">
+              <label> User Type</label>
+              <input type="text" ([ngModel])="userData.type" name="type" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 com-sm-12 col-xs-12">
+              <label> Location</label>
+              <input type="text" ([ngModel])="userData.location" name="location" >
+            </div>
+          </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="saveUser()">Save</button>
+  </div>
+</ng-template>

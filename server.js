@@ -2,6 +2,8 @@
 let express = require('express');
 let app = express();
 let mongo = require('mongoose');
+const path = require('path');
+const http = require('http');
 let bodypareser = require('body-parser');
 // Own Imports
 let environment = require('./server/config/app.config');
@@ -28,7 +30,11 @@ mongo.connect(environment.dburl,function(err) {
 // res.send(err);
 })
 
+app.use(express.static(path.join(__dirname, 'dist')));
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
 
 // base root set
 app.get('/',function(req,res){
@@ -36,10 +42,11 @@ res.send('Welcome To QuoteApp');
 });
 // var port = process.env.PORT || 8080;
 
-// Port Setuping
-app.listen(3000);
+const port = process.env.PORT || '3000';
+app.set('port', port);
+const server = http.createServer(app);
 
-
+server.listen(port, () => console.log(`Running on localhost:${port}`));
 // --- Extra Api Server Code
 // var jwt = require('jsonwebtoken');
 // app.get('/loginuser',check()function(req,res){
