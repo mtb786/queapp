@@ -30,10 +30,10 @@ mongo.connect(environment.dburl,function(err) {
 // res.send(err);
 })
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '/dist')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(path.join(__dirname+'/dist/index.html'));
 });
 
 // base root set
@@ -41,12 +41,7 @@ app.get('/',function(req,res){
 res.send('Welcome To QuoteApp');
 });
 // var port = process.env.PORT || 8080;
-
-const port = process.env.PORT || '3000';
-app.set('port', port);
-const server = http.createServer(app);
-
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+app.listen(process.env.PORT || 8080);
 // --- Extra Api Server Code
 // var jwt = require('jsonwebtoken');
 // app.get('/loginuser',check()function(req,res){
