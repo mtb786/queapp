@@ -27,7 +27,7 @@ export class CommonHttpService {
         .catch(this.handleError);
     }
     callApi2(apiname: string , data?: any ):  Observable<any> {
-        return this.http.post(`${environment.urlpath}/` +  apiname, data , '' ).map((res: Response) => res.json())
+        return this.http.post(`http://localhost:3000/` +  apiname, data , '' ).map((res: Response) => res.json())
         //              .do(data => console.log('server data:', data))  // debug
         .catch(this.handleError);
 

@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   public Login(id: any, password: any) {
     const params = { 'id': id, 'password': password };
-    this.loginSubscription = this.http.callApi2('login', params).subscribe((res) => {
+    this.loginSubscription = this.http.callApi2('api/auth/login', params).subscribe((res) => {
       if (res['status'] === true) {
         console.log(res.data);
         const user_id = res.data.user_id;

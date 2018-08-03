@@ -1,6 +1,6 @@
 let usermodel = require('../model/user.model');
 let jwt = require('jsonwebtoken');
-
+const UserProfile = require('../model/userprofile.model');
 const json2csv = require('json2csv').parse;
 const fs = require('fs');
 const nodemailer = require('nodemailer');
@@ -36,16 +36,63 @@ module.exports = {
         }
     },
     UserDetails: function (req, res) {
+    
+
         try {
-            usermodel.find().sort({ "id": 1 }).then(function (collectionResponse, collectionError) {
-                if (collectionError) {
-                    res.status(400).send({ status: false, message: collectionError });
-                } else {
-                    res.status(200).send({ status: true, data: collectionResponse });
-                }
-            })
+        //     usermodel.aggregate({
+
+        //         $match  : {_id : '5b17a9fa46ede024e42c6a27' }
+        //     });
+
+
+
+
+ UserProfile.aggregate([
+             
+            {
+               $lookup: {
+                        from: "userinfo",
+                        localField: "user",
+                        foreignField: "_id",
+                        as: "users"
+                        }
+                        
+            },
+            {
+                $project : {
+                     "firstname" : 1,
+                     "country":1,
+                 } 
+         }
+            
+        ]).exec((errs,data)=> {
+            if(errs) {
+                console.log('error');
+                res.send(errs);
+
+            } else {
+                console.log('sucess');
+            
+                res.send(data);
+
+            }
+            
+        });
+
+            
+            //  UserProfile.find().then(function (collectionResponse, collectionError) {
+            //     if (collectionError) {
+                 
+            //         res.status(400).send({ status: false, message: collectionError });
+            //     } else {
+            //         console.log(collectionResponse);
+            //         console.log('Sucessfull');
+            //         res.status(200).send({ status: true, data: collectionResponse });
+            //     }
+            // })
         } catch (err) {
-            return res.status(200).send({ message: error })
+            console.log(err);
+            return res.status(200).send({ message: err })
         }
     },
     UserUpdate: function (req, res) {
@@ -81,6 +128,12 @@ module.exports = {
     },
     UserLogin: function (req, res) {
         try {
+            usermodel.aggregate([
+      {
+            
+
+      }
+            ]);   
             usermodel.findOne({ 'id': req.body.id, 'password': req.body.password }, function (errs, obj) {
                 if (errs) {
                     return res.status(400).send({ 'message': errs });
@@ -183,9 +236,9 @@ module.exports = {
             }
         ];
         var csv = json2csv.pa({ data: myCars, fields: fields });
-        usermodel.findOne({},function(err,obj) {
+        usermodel.findOne({}, function (err, obj) {
 
-       });     
+        });
         fs.writeFile('file.csv', csv, function (err) {
             if (err) throw err;
             console.log('fileed');
@@ -236,6 +289,45 @@ module.exports = {
         } else {
             return res.status(200).send({ message: 'Provide email id' })
         }
+
+    },
+    UserProfile: (req, res) => {
+
+
+        usermodel.findOne({ _id: req.body.user }, function (err, obj) {
+            if (err) {
+                res.status(400).send({ status: false, message: 'user not registerd' });
+            } else {
+
+                let profilemodel = UserProfile();
+
+                profilemodel.user = req.body.user;
+                profilemodel.firstname = req.body.firstname;
+                profilemodel.middlename = req.body.middlename;
+                profilemodel.lastname = req.body.lastname;
+                profilemodel.country = req.body.country;
+
+
+                profilemodel.save((err) => {
+                    if (err) {
+                        res.status(400).send({
+                            status: false,
+                            message: 'User Profile Not Saved',
+                            error: JSON.stringify(err)
+                        })
+                    } else {
+                        res.status(200).send({
+                            status: true,
+                            message: 'User Profile  Saved'
+                        });
+                    }
+                });
+
+
+            }
+
+        });
+
 
     }
 }

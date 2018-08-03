@@ -1,12 +1,13 @@
 // Pre Buileded Modules
-let express = require('express');
-let app = express();
-let mongo = require('mongoose');
+const express = require('express');
+const app = express();
+const mongo = require('mongoose');
 const path = require('path');
 const http = require('http');
-let bodypareser = require('body-parser');
+const bodypareser = require('body-parser');
+const routingConfigure = require('./server/routes/app.routes');
 // Own Imports
-let environment = require('./server/config/app.config');
+let environment = require('./server/config/app.config.json');
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -21,13 +22,17 @@ app.use(bodypareser.urlencoded({
 }));
 
 // Routing File Set for controller calling
-require('./server/routes/app.routes')(app);
+app.use('/',routingConfigure);
 
 
 // Mongo Setuping 
 mongo.Promise = global.Promise;
-mongo.connect(environment.dburl,function(err) {
-// res.send(err);
+mongo.connect(environment.dburl,{ useNewUrlParser: true },function(err) {
+if(err) {
+    console.log('Unable To Connect');
+} else {
+    console.log('DB IS Connected');
+}
 })
 
 app.use(express.static(path.join(__dirname, '/dist')));
@@ -41,7 +46,7 @@ app.get('/',function(req,res){
 res.send('Welcome To QuoteApp');
 });
 // var port = process.env.PORT || 8080;
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 3000);
 // --- Extra Api Server Code
 // var jwt = require('jsonwebtoken');
 // app.get('/loginuser',check()function(req,res){

@@ -24,16 +24,10 @@ type: {
 	required: true ,
 	enum :["admin","primary","super","secondary"]
 },
-location: {
-	type : String, 
-	required: true
-},
 created: {
 	type : String, 
 	required: true
 }
-
-
 
 });
 module.exports = mongo.model('userinfo', user);

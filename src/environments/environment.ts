@@ -5,5 +5,5 @@
 
 export const environment = {
   production: true,
-  urlpath : ''
+  urlpath : 'http://localhost:8080'
 };
