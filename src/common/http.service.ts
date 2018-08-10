@@ -3,6 +3,9 @@ import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
 import { Http, Response , RequestOptions , URLSearchParams  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'; 
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 /**
@@ -15,17 +18,16 @@ export class CommonHttpService {
 * @param {Http} http - The injected Http.
 * @constructor
 */
-    constructor(private http: Http) {}
+    constructor(private http: Http,private httpClient : HttpClient) {}
 /**
 * Returns an Observable for the HTTP GET request for the JSON resource.
 * @return {string[]} The Observable for the HTTP request.
 */
-    callApi(apiname: string ): Observable<any> {
-
-        return this.http.get(`${environment.urlpath}/` +  apiname).map((res: Response) => res.json())
-        //              .do(data => console.log('server data:', data))  // debug
-        .catch(this.handleError);
-    }
+    callApi(apiname: string,data:any,options:any ): Observable<any> {
+        console.log(options);
+                                   
+        return this.httpClient.post(`http://localhost:3000/` +  apiname,data, options)
+     }
     callApi2(apiname: string , data?: any ):  Observable<any> {
         return this.http.post(`http://localhost:3000/` +  apiname, data , '' ).map((res: Response) => res.json())
         //              .do(data => console.log('server data:', data))  // debug

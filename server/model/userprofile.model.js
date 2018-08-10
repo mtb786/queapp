@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 const profileSchema = new Schema({
  user :{
      type : Schema.Types.ObjectId,
-     ref : 'userinfo'
+     ref : 'userinfo',
+     unique : true
  },
  firstname : {
      type : String,
@@ -12,7 +13,7 @@ const profileSchema = new Schema({
  middlename : {
         type : String,
         required : false
- },
+ }, 
  lastname : {
     type : String,
     required : true
@@ -20,7 +21,19 @@ const profileSchema = new Schema({
  country : {
      type : String,
      required : true
- } 
+ } ,
+ created_on : {
+     type : Date,
+     default : Date.now
+ },
+ created_by : {
+    type : Date,
+    default : Date.now
+},
+created_by : {
+    type : Schema.Types.ObjectId,
+    ref : 'userinfo'
+}
 
 });
 

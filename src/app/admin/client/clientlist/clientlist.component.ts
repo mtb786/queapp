@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-clientlist',
   templateUrl: './clientlist.component.html',
@@ -43,12 +44,24 @@ export class ClientlistComponent implements OnInit {
     // }, 500);
   }
   private loadUserInfo() {
-    this.userInfoListSubsctiption = this.http.callApi('userinfo').subscribe((res) => {
-      console.log(res);
-      this.clientInformation = res.data;
-      console.log('Client Information');
-      console.log(this.clientInformation);
+    const reqData =  {id : localStorage.getItem('user_id')};
+    const tokken = localStorage.getItem('user_tokken');
+    
+    
 
+    const headers = new HttpHeaders({ 'tokken': tokken });
+   
+
+    this.userInfoListSubsctiption = this.http.callApi('api/auth/userinfo',reqData, {
+      headers: headers
+    }).subscribe((res) => {
+      if(res.data !== undefined) {
+        this.clientInformation = res.data;
+        console.log('Client Information');
+        console.log(this.clientInformation);  
+        console.log(localStorage.getItem('user_id'));
+        console.log(localStorage.getItem('user_tokken'));
+      } 
     }, (err) => {
       console.log(err);
     }
@@ -62,8 +75,20 @@ export class ClientlistComponent implements OnInit {
       console.log(res);
       this.clientInformation = res.data;
     });
-
-
+  }
+  public changeActiveType(event : any,reqID : any) {
+    console.log(event);
+    let modetype : String;
+    
+    event.checked === true ? modetype ='active' :modetype= 'inactive';
+    console.log(modetype);
+    const reqData =  {id :localStorage.getItem('user_id'),  reqId : reqID,modetype :modetype };
+    const tokken = localStorage.getItem('user_tokken');
+    const headers = new HttpHeaders({ 'tokken': tokken });
+   
+    this.activeinactiveUpdateUserSubscription = this.http.callApi('api/auth/useredit',reqData,{headers :headers} ).subscribe((response) => {
+     alert(response);
+    } )
   }
   public ngAfterContentInit() {
     this.loadUserInfo();

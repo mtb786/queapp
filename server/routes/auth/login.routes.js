@@ -3,14 +3,15 @@ const USER_CONTROLLER = require('../../controller/user.controller')
 const LEAD_CONTROLLER = require('../../controller/lead.controller');
 const express = require('express');
 const router = express.Router();
-
+const authenticate = require('../../middleware/autheticate');
+const usermiddleware = require('../../middleware/usermiddleware');
 'use-strict'
 
 
 router.post('/user',cors(),USER_CONTROLLER.LoginVerification);
-router.get('/userinfo',cors(),USER_CONTROLLER.UserDetails);
+router.post('/userinfo',cors(),authenticate,USER_CONTROLLER.UserDetails);
 router.post('/userdelete',cors(),USER_CONTROLLER.UserDelete);
-router.post('/useredit',cors(),USER_CONTROLLER.UserEdit);
+router.post('/useredit',cors(),authenticate,usermiddleware,USER_CONTROLLER.UserEdit);
 // app.post('/userupdate', cors(), USER_CONTROLLER.UsersUpdate);
 
 

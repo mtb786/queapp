@@ -22,11 +22,17 @@ modetype: {
 type: {
 	type : String, 
 	required: true ,
-	enum :["admin","primary","super","secondary"]
+	enum :["admin","user","superadmin"]
 },
-created: {
-	type : String, 
-	required: true
+created_on :  {
+        type: Date,
+        required : true,
+        default: Date.now
+},
+modified_on : {
+    type: Date,
+    required : true,
+    default: Date.now
 }
 
 });

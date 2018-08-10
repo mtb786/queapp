@@ -15,11 +15,17 @@ app.use(function(req, res, next) {
     next();
 });
 
+function requestType(req,res,next) {
+    console.log(req.url);
+    console.log(req.listen);
+    next();
+}
 
 app.use(bodypareser.json());
 app.use(bodypareser.urlencoded({
     extended:true
 }));
+app.use(requestType);
 
 // Routing File Set for controller calling
 app.use('/',routingConfigure);
